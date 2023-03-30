@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import React, { useState, useCallback } from "react";
 import TextField from "@mui/material/TextField";
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { clearState } from "../Store/WeatherSlice";
@@ -71,6 +71,7 @@ const WeatherForm = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Autocomplete
+                noOptionsText = {<div style={{textAlign:'center'}}><CircularProgress size={'30px'}/></div>}
                 options={suggestions}
                 onInputChange={(event, value) => fetchSuggestions(value)}
                 renderInput={(params) => (
@@ -107,6 +108,7 @@ const WeatherForm = () => {
                   backgroundColor: "white",
                   "&:hover": { backgroundColor: "#cc7722" },
                   "&:active": { backgroundColor: "#cc7722" },
+                  marginBottom:'5px'
                   
                 }}
                  variant="contained" type="submit">

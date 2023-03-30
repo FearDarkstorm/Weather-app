@@ -34,10 +34,23 @@ const Section1 = () => {
   const dispatch = useDispatch();
   const location1 = useSelector((state) => state.weather.City.city);
 
+  const [display,setdisplay] = useState('flex');
+  const [display2,setdisplay2] = useState('none')
+  const checkdisplay = () => {
+    if (typeof currCity === 'string') {
+      setdisplay('none')
+      setdisplay2('block')
+    }
+  }
+
   useEffect(() => {
     WeatherByLocation(dispatch,location1);
 
   },[])
+  useEffect(()=> {
+    checkdisplay();
+
+  })
   const airq = () => {
     let random = Math.floor(Math.random() * 5);
     let currair;
@@ -69,8 +82,8 @@ const Section1 = () => {
 
   return (
     <div >
-      <div style={{display:'none',justifyContent:'center',alignItems:'center',height:'100vh'}} > <CircularProgress size={'200px'}/> </div>
-    <div style={{display:'block'}}>
+      <div style={{display:display,justifyContent:'center',alignItems:'center',height:'100vh'}} > <CircularProgress size={'200px'}/> </div>
+    <div style={{display:display2}}>
     <div
       style={{
         display: "flex",
@@ -85,14 +98,16 @@ const Section1 = () => {
         sx={{
           width: "90vw",
           border: "1px solid #EDEDED",
-          height: "750px",
+          height:{md:"750px",xs:'80vh'},
           borderRadius: "30px",
           overflow: "hidden",
         }}
       >
         <Grid
           item
-          sm={6}
+          sm={12}
+          md={6}
+
           sx={{
             backgroundColor: "#1C3E66",
           }}
@@ -121,19 +136,19 @@ const Section1 = () => {
           </div>
           <div style={{ textAlign: "center" }}>
             {" "}
-            <div style={{ marginTop: "30vh", color: "#EDEDED" }}>
+            <Box sx={{ marginTop:{md:"30vh",xs:'60px'}, color: "#EDEDED" }}>
               <h1>The only weather App you need !</h1>
               <WeatherForm />
-            </div>
+            </Box>
           </div>
         </Grid>
-        <Grid item sm={6} sx={{ backgroundColor: "#cc7722" }}>
+        <Grid item xs={12} md={6} sx={{ backgroundColor: "#cc7722" }}>
           <div style={{ margin: "40px 20px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h1 style={{ color: "#EDEDED" }}>Today</h1>
               <h2 style={{ color: "#EDEDED" }}>29 March 2023</h2>
             </div>
-            <div style={{ border: "1px solid white", borderRadius: "30px" }}>
+            <div style={{ border: "1px solid white", borderRadius: "30px",padding:'30px 0px' }}>
               <Grid container>
                 <Grid item xs={6}>
                   <div
@@ -144,12 +159,12 @@ const Section1 = () => {
                       alignItems: "center",
                     }}
                   >
-                    <h2>{currTemprature}C</h2>
-                    <h2>{currCondition}</h2>
-                    <h2>{currHumidity}%</h2>
+                    <Typography sx={{fontSize:{md:'24px',xs:'18.8px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}>Temprature: {currTemprature}C</Typography>
+                    <Typography sx={{fontSize:{md:'24px',xs:'18.8px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}raphy>Condition: {currCondition}</Typography>
+                    <Typography sx={{fontSize:{md:'24px',xs:'18.8px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}raphy>Humidity: {currHumidity}%</Typography>
                   </div>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} >
                   <div
                     style={{
                       display: "flex",
@@ -158,21 +173,21 @@ const Section1 = () => {
                       alignItems: "center",
                     }}
                   >
-                    <h3>Temprature-Real: {currTemprature + 2} </h3>
-                    <h3>Air Quality: Fair </h3>
-                    <h3>Min: {currTemprature - 3} </h3>
-                    <h3>Max: {currTemprature + 4 }</h3>
+                    <Typography sx={{fontSize:{md:'20.8px',sm:'16px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}>Temprature-Real: {currTemprature + 2} </Typography>
+                    <Typography sx={{fontSize:{md:'20.8px',sm:'16px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}>Air Quality: Fair </Typography>
+                    <Typography sx={{fontSize:{md:'20.8px',sm:'16px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}>Min: {currTemprature - 3} </Typography>
+                    <Typography sx={{fontSize:{md:'20.8px',sm:'16px'},fontWeight:'bold',padding:{md:'10px 0px',xs:'6px 0px'}}}>Max: {currTemprature + 4 }</Typography>
                   </div>
                 </Grid>
               </Grid>
             </div>
           </div>
 
-          <div style={{textAlign:'center'}}>
+          <Box sx={{textAlign:'center',display:{xs:"none",md:"block"}}}>
             <h1 style={{fontSize:'50px',marginTop:'150px',color:'#EDEDED'}}>
                 Weather<span style={{color:'red'}}>Strings</span>
             </h1>
-          </div>
+          </Box>
         </Grid>
       </Grid>
     </div>
