@@ -17,15 +17,19 @@ import WeatherTable from "../Form Table/WeatherTable";
 import { useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
+import DropdownMenu from "../Components/DropdownMenu";
+import { toggleOn } from "../Store/WeatherSlice";
 
 import './logo.png'
+import { Block } from "@mui/icons-material";
 
-import { width } from "@mui/system";
+
 
 const clouds =
   "https://freepngimg.com/thumb/cloud/78635-decorative-vector-clouds-papercutting-pattern-effect-cutting.png";
 
 const Section1 = () => {
+
   const logo = './logo.png'
   const currCity = useSelector((state) => state.weather.Area.name);
   const currTemprature = useSelector((state) => state.weather.Temperature);
@@ -33,9 +37,12 @@ const Section1 = () => {
   const currHumidity = useSelector((state) => state.weather.Humidity);
   const dispatch = useDispatch();
   const location1 = useSelector((state) => state.weather.City.city);
+  const Title = useSelector((state) => state.weather.Title.city )
+  console.log(Title);
 
   const [display,setdisplay] = useState('flex');
   const [display2,setdisplay2] = useState('none')
+  const [display3,setdisplay3] = useState('none')
   const checkdisplay = () => {
     if (typeof currCity === 'string') {
       setdisplay('none')
@@ -84,6 +91,7 @@ const Section1 = () => {
     <div >
       <div style={{display:display,justifyContent:'center',alignItems:'center',height:'100vh'}} > <CircularProgress size={'200px'}/> </div>
     <div style={{display:display2}}>
+     
     <div
       style={{
         display: "flex",
@@ -93,12 +101,13 @@ const Section1 = () => {
         backgroundColor: "#F5F5F5",
       }}
     >
+       <DropdownMenu />
       <Grid
         container
         sx={{
-          width: "90vw",
+          width: "95vw",
           border: "1px solid #EDEDED",
-          height:{md:"750px",xs:'80vh'},
+          height:{md:"90vh",xs:'100vh'},
           borderRadius: "30px",
           overflow: "hidden",
         }}
@@ -106,7 +115,7 @@ const Section1 = () => {
         <Grid
           item
           sm={12}
-          md={6}
+          md={5}
 
           sx={{
             backgroundColor: "#1C3E66",
@@ -122,27 +131,33 @@ const Section1 = () => {
           >
             <div
               style={{ fontSize: "24px", color: "#EDEDED", fontWeight: "bold" }}
-            >
+            > 
               Weather<span style={{ color: "red" }}>Strings</span>
             </div>
             <div
               style={{ fontSize: "24px", color: "#EDEDED", fontWeight: "bold" }}
             ></div>
-            <div
-              style={{ fontSize: "24px", color: "#EDEDED", fontWeight: "bold" }}
+            <Box
+              sx={{ fontSize: "24px", color: "#EDEDED", fontWeight: "bold",display:{xs:'none',sm:'block'}}}
             >
               {currCity}
-            </div>
+            </Box>
           </div>
+          <Box
+              sx={{ fontSize: "24px",textAlign:'end',marginRight:'20px',color: "#EDEDED", fontWeight: "bold",display:{xs:'block',sm:'none'}}}
+            >
+              {currCity}
+            </Box>
+
           <div style={{ textAlign: "center" }}>
             {" "}
             <Box sx={{ marginTop:{md:"30vh",xs:'60px'}, color: "#EDEDED" }}>
               <h1>The only weather App you need !</h1>
-              <WeatherForm />
+              <WeatherForm  />
             </Box>
           </div>
         </Grid>
-        <Grid item xs={12} md={6} sx={{ backgroundColor: "#cc7722" }}>
+        <Grid item xs={12} md={7} sx={{ backgroundColor: "#cc7722" }}>
           <div style={{ margin: "40px 20px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h1 style={{ color: "#EDEDED" }}>Today</h1>
@@ -182,6 +197,12 @@ const Section1 = () => {
               </Grid>
             </div>
           </div>
+         <div style={{textAlign:'center'}}> <Box>
+          <Button variant='contained' sx={{backgroundColor:'#1C3E66'}} onClick={() => {
+            dispatch(toggleOn());
+          }}> Get Weather Forcast</Button>
+          </Box>
+          </div>
 
           <Box sx={{textAlign:'center',display:{xs:"none",md:"block"}}}>
             <h1 style={{fontSize:'50px',marginTop:'150px',color:'#EDEDED'}}>
@@ -192,6 +213,7 @@ const Section1 = () => {
       </Grid>
     </div>
     </div>
+    
     </div>
   );
 };

@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  Title: "",
   City: "",
   Area: "",
   Temperature: 0,
   Condition: "",
   Humidity: 0,
   Wind: 0,
+  Forcast: {},
+  display: 'none'
 };
 
 const WeatherSlice = createSlice({
@@ -31,9 +34,19 @@ const WeatherSlice = createSlice({
     addWind: (state, action) => {
       state.Wind = action.payload;
     },
-    clearState: (state) => {
-      return initialState;
+    addTitle: (state, action) => {
+      state.Title = action.payload;
     },
+    addForcast: (state,action) => {
+
+    },
+    toggleOn: (state) => {
+      state.display = 'block'
+    },
+    toggleOff: (state,display) => {
+      state.display = 'none'
+    }
+    
   },
 });
 
@@ -45,6 +58,10 @@ export const {
   addWind,
   clearState,
   getCity,
+  addTitle,
+  addForcast,
+  toggleOn,
+  toggleOff
 } = WeatherSlice.actions;
 
 export default WeatherSlice.reducer;

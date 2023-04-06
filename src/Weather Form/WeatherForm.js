@@ -11,6 +11,7 @@ import WeatherBySearch from "../WeatherByLocation/WeatherBySearch";
 import Autocomplete from "@mui/material/Autocomplete";
 import debounce from "lodash/debounce";
 import axios from "axios";
+import { addTitle } from "../Store/WeatherSlice";
 
 const WeatherForm = () => {
   const location = useSelector((state) => state.weather.City.city);
@@ -23,6 +24,7 @@ const WeatherForm = () => {
 
   const onSubmit = (data) => {
     dispatch(getCity(data));
+    dispatch(addTitle(data));
     WeatherBySearch(dispatch, data.city);
   };
 
